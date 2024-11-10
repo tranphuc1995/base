@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.phucth.service"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.phucth.service"

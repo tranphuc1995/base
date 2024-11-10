@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 
 abstract class RepositoryBase {
-    suspend fun <T> safeApiCal(
+    suspend fun <T> safeApiCall(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
         apiCall: suspend () -> Response<T>
     ): Flow<ResultNetworkApi<T>> {

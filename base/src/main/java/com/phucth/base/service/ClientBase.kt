@@ -13,15 +13,23 @@ class ClientBase<T>(
 ) {
 
 
-    public fun createClientApi(okHttpClient: OkHttpClient): T {
+    public fun createClientApi(okHttpClient: OkHttpClient? = null): T {
         val gson = initGson()
         val retrofit = initRetrofit(gson, okHttpClient)
         return retrofit.create(clientApi)
     }
 
     private fun initGson() = GsonBuilder().setLenient().create()
-    private fun initRetrofit(gson: Gson, okHttpClient: OkHttpClient) =
-        Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create(gson))
-            .client(okHttpClient)
-            .build()
+    private fun initRetrofit(gson: Gson, okHttpClient: OkHttpClient? = null): Retrofit {
+        return if (okHttpClient == null) {
+            Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+        } else {
+            Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
+                .build()
+        }
+    }
 }

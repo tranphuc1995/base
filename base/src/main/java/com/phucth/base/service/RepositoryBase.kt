@@ -32,7 +32,8 @@ abstract class RepositoryBase {
                     }
                 }
             } else {
-                errorMessageApi.message = response.errorBody().toString()
+                errorMessageApi.message = response.errorBody()?.string() ?: "Unknown error"
+                resultNetworkApi.error = errorMessageApi
             }
             emit(resultNetworkApi)
         }.catch { e ->
